@@ -1,12 +1,11 @@
 package com.example.appium.playground;
 
+import com.microsoft.appcenter.appium.EnhancedAndroidDriver;
+import com.microsoft.appcenter.appium.Factory;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
+import org.junit.*;
+import org.junit.rules.TestWatcher;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SampleTest {
 
-    private AndroidDriver<MobileElement> driver;
+    private EnhancedAndroidDriver<MobileElement> driver;
 
     // device name is ignored in Android for now
     private static final String DEVICE_NAME = "Nexus 4 API 29";
@@ -24,6 +23,9 @@ public class SampleTest {
     private static final String AUTOMATION_NAME = "UiAutomator2";
     private static final String URL_PATH = "http://127.0.0.1:4723/wd/hub";
 
+
+    @Rule
+    public TestWatcher watcher = Factory.createWatcher();
 
     @Before
     public void setup() throws MalformedURLException {
@@ -35,12 +37,20 @@ public class SampleTest {
         desiredCapabilities.setCapability("automationName", AUTOMATION_NAME);
 
         URL url = new URL(URL_PATH);
-        driver = new AndroidDriver(url, desiredCapabilities);
+        driver = Factory.createAndroidDriver(url, desiredCapabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+    @After
+    public void TearDown(){
+        driver.label("Stopping App");
+        driver.quit();
     }
 
     @Test
     public void first_test() {
+        driver.label("click firstButton");
         driver.findElementByAccessibilityId("firstButton").click();
+        Assert.assertTrue(driver.findElementByAccessibilityId("firstScreenText").isDisplayed());
     }
 }
