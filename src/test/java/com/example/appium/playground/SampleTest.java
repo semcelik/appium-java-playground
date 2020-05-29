@@ -52,5 +52,6 @@ public class SampleTest {
         driver.label("click firstButton");
         driver.findElementByAccessibilityId("firstButton").click();
         Assert.assertTrue(driver.findElementByAccessibilityId("firstScreenText").isDisplayed());
+        driver.label("finished");
     }
 }
