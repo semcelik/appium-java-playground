@@ -127,11 +127,9 @@ public class AppManager {
     }
 
     private static void setPlatform() {
-        String envPlatform = System.getenv("XTC_PLATFORM");
-        //String envPlatform = "ios";
-
+        String envPlatform = PropertiesConfig.getInstance().getPlatform();
         if (envPlatform == null) {
-            throw new RuntimeException("The 'XTC_PLATFORM' environment variable is not set");
+            throw new RuntimeException("The environment variable is not set");
         } else if (envPlatform.equals("android")) {
             platform = Platform.ANDROID;
         } else if (envPlatform.equals("ios")) {
