@@ -18,7 +18,6 @@ public class PropertiesConfig {
     private PropertiesConfig() throws IOException {
         Properties properties = getProperties();
         platform = Optional.ofNullable(System.getenv(APP_CENTER_TEST_PLATFORM_ENV)).orElse(properties.getProperty("platform"));
-        AppManager.label("PROPERTIESS: " + properties.getProperty("platform"));
         iosAppPath = properties.getProperty("ios.app.path");
         iosDeviceName = properties.getProperty("ios.device.name");
     }
