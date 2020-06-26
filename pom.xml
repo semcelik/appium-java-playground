@@ -46,7 +46,7 @@
 
     <profiles>
         <profile>
-            <id>ios-simulator</id>
+            <id>ios</id>
             <build>
                 <plugins>
                     <plugin>
@@ -62,7 +62,7 @@
             </build>
         </profile>
         <profile>
-            <id>android-simulator</id>
+            <id>android</id>
             <build>
                 <plugins>
                     <plugin>
